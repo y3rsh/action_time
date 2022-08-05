@@ -28,11 +28,18 @@ jobs:
           repository: "Opentrons/opentrons-emulation"
           ref: dev-container
           path: emulation
+  
+      - name: Setup opentrons-emulation project
+        uses: Opentrons/opentrons-emulation@release-v2.3.2
+        with:
+          input-file: ${{ github.workspace }}/emulation/ot2_with_all_modules.yaml
+          command: setup
 
-      - name: build and run emulation
-        working-directory: ${{ github.workspace }}/emulation
-        run:  |
-          docker-compose up
+      - name: Run emulated system
+        uses: Opentrons/opentrons-emulation@release-v2.3.2
+        with:
+          input-file: ${{ github.workspace }}/emulation/ot2_with_all_modules.yaml
+          command: run
 
       - name: Run establish a ngrok tunnel
         uses: vmactions/ngrok-tunnel@v0.0.1
