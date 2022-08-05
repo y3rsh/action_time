@@ -22,13 +22,6 @@ jobs:
     env:
       NGROK_TOKEN : ${{ secrets.NGROK_AUTHTOKEN }}
     steps:
-      - name: Install network-manager tool
-        run: |
-          sudo apt-get update
-          sudo apt-get install network-manager
-          systemctl start NetworkManager.service
-          nmcli device status
-
       - name: Checkout opentrons-emulation
         uses: actions/checkout@v3
         with:
@@ -61,18 +54,49 @@ jobs:
           python-version: "3.10"
       
       - name: "curl"
+        if: ${{ always() }}
         run: |
-          curl y3rsh.ngrok.io/health
+          curl http://y3rsh.ngrok.io/health
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
           sleep 60s
-          curl y3rsh.ngrok.io/health
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://y3rsh.ngrok.io/health
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://y3rsh.ngrok.io/health
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
           sleep 60s
-          curl y3rsh.ngrok.io/health
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://y3rsh.ngrok.io/health
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
           sleep 60s
-          curl y3rsh.ngrok.io/health
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://y3rsh.ngrok.io/health
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
           sleep 60s
-          curl y3rsh.ngrok.io/health
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://y3rsh.ngrok.io/health
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
           sleep 60s
-          curl y3rsh.ngrok.io/health
       # - name: Install pipenv
       #   run: |
       #     pip install pipenv==2022.3.24
