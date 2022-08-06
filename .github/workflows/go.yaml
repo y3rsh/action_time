@@ -23,19 +23,10 @@ jobs:
   robot:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    services:
-      ngrok:
-        image: wernight/ngrok:latest
-        env:
-          NGROK_TOKEN: ${{ secrets.NGROK_AUTHTOKEN }}
-          NGROK_PORT: 31950
-          NGROK_PROTOCOL: HTTP
-          NGROK_SUBDOMAIN: y3rsh
-          NGROK_BINDTLS: false
-          NGROK_DEBUG: true
-        ports:
-          - 31950:31950
     steps:
+      - name: ngrok
+        run: |
+          docker run --net=host -d -e NGROK_AUTHTOKEN=${{ secrets.NGROK_AUTHTOKEN }} ngrok/ngrok:3 http 31950 --subdomain=y3rsh --scheme=http
       - name: Checkout opentrons-emulation
         uses: actions/checkout@v3
         with:
