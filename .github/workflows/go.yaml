@@ -49,7 +49,7 @@ jobs:
           command: setup
 
       - name: Run emulated system
-        uses: Opentrons/opentrons-emulation@dev-dontainer
+        uses: Opentrons/opentrons-emulation@dev-container
         with:
           input-file: ${{ github.workspace }}/ot2_with_all_modules.yaml
           command: run
