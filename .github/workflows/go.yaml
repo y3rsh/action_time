@@ -43,13 +43,13 @@ jobs:
           ref: ${{ github.event.inputs.emulation-version }}
   
       - name: Setup opentrons-emulation project
-        uses: Opentrons/opentrons-emulation@${{ github.event.inputs.emulation-version }}
+        uses: "Opentrons/opentrons-emulation@${{ github.event.inputs.emulation-version }}"
         with:
           input-file: ${{ github.workspace }}/ot2_with_all_modules.yaml
           command: setup
 
       - name: Run emulated system
-        uses: Opentrons/opentrons-emulation@${{ github.event.inputs.emulation-version }}
+        uses: "Opentrons/opentrons-emulation@${{ github.event.inputs.emulation-version }}"
         with:
           input-file: ${{ github.workspace }}/ot2_with_all_modules.yaml
           command: run
