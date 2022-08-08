@@ -9,25 +9,27 @@ jobs:
     timeout-minutes: 10
     runs-on: "windows-2022"
     steps:
-      - uses: "actions/setup-python@v4"
-        with:
-          python-version: "3.7"
-          cache: 'pipenv'
       - uses: 'actions/checkout@v3'
         with:
           repository: "Opentrons/opentrons"
           ref: edge
+      - uses: "actions/setup-python@v4"
+        with:
+          python-version: "3.7"
+          cache: 'pipenv'
+          cache-dependency-path: |
+            api/Pipfile.lock
+            robot-server/Pipfile.lock
       - uses: 'actions/setup-node@v3'
         with:
           node-version: '14'
-          cache: 'yarn'
       - uses: './.github/actions/python/setup'
         with:
           project: 'robot-server'
       - name: Setup OT-2
         run: make -C robot-server setup-ot2
       - name: Run
-        run: make -C robot-server dev & # works don't have to use START "" thecommand
+        run: make -C robot-server dev & # works don't have to use: START "" thecommand
       - name: "sleep"
         if: ${{ always() }}
         run: |
