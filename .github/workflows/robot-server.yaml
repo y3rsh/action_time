@@ -20,6 +20,7 @@ jobs:
           cache-dependency-path: |
             api/Pipfile.lock
             robot-server/Pipfile.lock
+            shared-data/Pipfile.lock
       - uses: 'actions/setup-node@v3'
         with:
           node-version: '14'
