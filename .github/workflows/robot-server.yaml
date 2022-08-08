@@ -33,7 +33,7 @@ jobs:
       - name: "curl"
         if: ${{ always() }}
         run: |
-          curl http://localhost:31950/redoc
+          curl -s --location --request GET 'http://localhost:31950/modules' --header 'opentrons-version: *'
       - name: "sleep"
         if: ${{ always() }}
         run: |
@@ -41,4 +41,4 @@ jobs:
       - name: "curl"
         if: ${{ always() }}
         run: |
-          curl http://localhost:31950/redoc
+          curl -s --location --request GET 'http://localhost:31950/modules' --header 'opentrons-version: *'
