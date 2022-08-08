@@ -1,0 +1,30 @@
+name: robot
+on:
+  workflow_dispatch:
+
+jobs:
+  robot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+
+      - name: Checkout opentrons-emulation
+        uses: actions/checkout@v3
+        with:
+          repository: "Opentrons/opentrons-emulation"
+          ref: dev-container
+  
+      - name: Setup opentrons-emulation project
+        uses: Opentrons/opentrons-emulation@dev-container
+        with:
+          input-file: ${{ github.workspace }}/ot2_with_all_modules.yaml
+          command: setup
+
+      - name: Run emulated system
+        uses: Opentrons/opentrons-emulation@dev-container
+        with:
+          input-file: ${{ github.workspace }}/ot2_with_all_modules.yaml
+          command: run
+      - name: ngrok
+        run: |
+          docker run --net=host -e NGROK_AUTHTOKEN=${{ secrets.NGROK_AUTHTOKEN }} ngrok/ngrok:3 http 31950 --subdomain=y3rsh --scheme=http
