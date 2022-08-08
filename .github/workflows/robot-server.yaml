@@ -12,6 +12,7 @@ jobs:
       - uses: "actions/setup-python@v4"
         with:
           python-version: "3.7"
+          cache: 'pipenv'
       - uses: 'actions/checkout@v3'
         with:
           repository: "Opentrons/opentrons"
@@ -25,7 +26,7 @@ jobs:
       - name: Setup OT-2
         run: make -C robot-server setup-ot2
       - name: Run
-        run: make -C robot-server dev &
+        run: make -C robot-server dev & # works don't have to use START "" thecommand
       - name: "sleep"
         if: ${{ always() }}
         run: |
@@ -33,7 +34,7 @@ jobs:
       - name: "curl"
         if: ${{ always() }}
         run: |
-          curl -s --location --request GET 'http://localhost:31950/modules' --header 'opentrons-version: *'
+          Invoke-WebRequest -Method 'Get' -Uri http://localhost:31950/modules -Headers @{'Accept' = 'application/json'; 'opentrons-version' = '*'}
       - name: "sleep"
         if: ${{ always() }}
         run: |
@@ -41,4 +42,4 @@ jobs:
       - name: "curl"
         if: ${{ always() }}
         run: |
-          curl -s --location --request GET 'http://localhost:31950/modules' --header 'opentrons-version: *'
+          cInvoke-WebRequest -Method 'Get' -Uri http://localhost:31950/modules -Headers @{'Accept' = 'application/json'; 'opentrons-version' = '*'}
