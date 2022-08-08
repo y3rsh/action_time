@@ -24,8 +24,12 @@ jobs:
           project: 'robot-server'
       - name: Setup OT-2
         run: make -C robot-server setup-ot2
-      - name: Run
-        run: make -C robot-server dev #& # works don't have to use: START "" thecommand
+      # - name: Run
+      #   run: make -C robot-server dev #& # works don't have to use: START "" thecommand
+      - name: run directly
+        run: |
+          cd robot-server
+          pipenv run uvicorn "robot_server:app" --host localhost --port 31950 --ws wsproto --lifespan on
       - name: "sleep"
         if: ${{ always() }}
         run: |
