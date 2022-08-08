@@ -1,0 +1,44 @@
+name: robot-server
+on:
+  workflow_dispatch:
+
+jobs:
+  robot:
+    env:
+      PIPENV_VENV_IN_PROJECT: 1
+    timeout-minutes: 10
+    runs-on: "windows-2022"
+    steps:
+      - uses: "actions/setup-python@v4"
+        with:
+          python-version: "3.7"
+      - uses: 'actions/checkout@v3'
+        with:
+          repository: "Opentrons/opentrons"
+          ref: edge
+      - uses: 'actions/setup-node@v3'
+        with:
+          node-version: '14'
+      - uses: './.github/actions/python/setup'
+        with:
+          project: 'robot-server'
+      - name: Setup OT-2
+        run: make -C robot-server setup-ot2
+      - name: Run
+        run: make -C robot-server dev &
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
+          sleep 10s
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://localhost:31950/redoc
+      - name: "sleep"
+        if: ${{ always() }}
+        run: |
+          sleep 20s
+      - name: "curl"
+        if: ${{ always() }}
+        run: |
+          curl http://localhost:31950/redoc
