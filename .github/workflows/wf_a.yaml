@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  robot:
+  print-group:
     runs-on: ubuntu-latest
     steps:
       - name: Print
