@@ -2,9 +2,9 @@ name: Workflow C
 
 on: [push, pull_request]
 
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.sha }}-$${ github.ref_name != edge || github.run_id github.run_attempt }-${{ github.ref_type != tag || github.run_id github.run_attempt }}
-#   cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.sha }}-${{ github.ref_name != 'edge' || github.run_id}}-${{ github.ref_type != 'tag' || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   robot:
