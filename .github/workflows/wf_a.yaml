@@ -1,6 +1,16 @@
 name: Workflow A
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - '**'
+    branches:
+      - '**'
+    tags:
+      - '**'
+  pull_request:
+    paths:
+      - '**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ github.ref_name != 'edge' || github.run_id}}-${{ github.ref_type != 'tag' || github.run_id }}
