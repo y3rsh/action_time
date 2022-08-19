@@ -3,7 +3,7 @@ name: Workflow A
 on: [push, pull_request]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ github.ref_name != 'edge' || github.run_id}}-${{ github.ref_type != 'tag' || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.ref_name != 'edge' || github.run_id}}-${{ github.ref_type != 'tag' || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
       - name: Print
         shell: bash
         run: |
-          echo '${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ github.ref_name != 'edge' || github.run_id}}-${{ github.ref_type != 'tag' || github.run_id }}'
+          echo '${{ github.workflow }}-${{ github.ref }}-${{ github.ref_name != 'edge' || github.run_id}}-${{ github.ref_type != 'tag' || github.run_id }}'
           echo "Awake"
       - name: Sleep for 4m
         shell: bash
