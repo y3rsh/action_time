@@ -1,4 +1,4 @@
-name: Workflow A
+name: Workflow C
 
 on: [push, pull_request]
 
@@ -16,3 +16,4 @@ jobs:
           echo ${{ github.workflow }}-${{ github.sha }}-$${ github.ref_name != 'edge' || github.run_id github.run_attempt }-${{ github.ref_type != 'tag' || github.run_id github.run_attempt }}
           sleep 4m
           echo "Awake"
+
