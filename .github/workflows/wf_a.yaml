@@ -1,0 +1,18 @@
+name: Workflow A
+
+on: [push, pull_request]
+
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.sha }}-$${ github.ref_name != edge || github.run_id github.run_attempt }-${{ github.ref_type != tag || github.run_id github.run_attempt }}
+#   cancel-in-progress: true
+
+jobs:
+  robot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 4m
+        shell: bash
+        run: |
+          echo ${{ github.workflow }}-${{ github.sha }}-$${ github.ref_name != edge || github.run_id github.run_attempt }-${{ github.ref_type != tag || github.run_id github.run_attempt }}
+          sleep 4m
+          echo "Awake"
