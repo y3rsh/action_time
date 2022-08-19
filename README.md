@@ -4,3 +4,4 @@
 
 - Do not cancel workflows if the branch is edge
 - Do not cancel workflows if tag push
+
