@@ -19,7 +19,9 @@ jobs:
         run: python --version
       - shell: bash
         run: which python
-      - shell: bash
-        run: |
-          /opt/hostedtoolcache/Python/3.8.14/x64/bin/python -m pip install pipenv
-          /opt/hostedtoolcache/Python/3.10.7/x64/bin/python -m pip install pipenv
+      - name: Use 3.8
+        shell: bash
+        run: /opt/hostedtoolcache/Python/3.8.14/x64/bin/python -m pip install pipenv
+      - name: Use 3.10
+        shell: bash
+        run: /opt/hostedtoolcache/Python/3.10.7/x64/bin/python -m pip install pipenv
